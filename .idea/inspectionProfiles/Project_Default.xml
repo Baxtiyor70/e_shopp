@@ -1,0 +1,27 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="hendlers.send_photo" />
+          <option value="hendlers.messege" />
+          <option value="hendlers.callback_metods" />
+          <option value="hendlers.CommandHandler" />
+          <option value="hendlers.MessageHandler" />
+          <option value="hendlers.Filters" />
+          <option value="hendlers.start" />
+          <option value="hendlers.callback_methods" />
+          <option value="telegram.ext" />
+          <option value="telegram.ReplyKeyboardMarkup" />
+          <option value="hendlers.messege_handler" />
+          <option value="account.views.LoginView" />
+          <option value="request.models.CustomUser" />
+          <option value="account.urls.LoginApiView" />
+          <option value="account.views.LoginApiView" />
+          <option value="account.serializers.LoginUserSerializer" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

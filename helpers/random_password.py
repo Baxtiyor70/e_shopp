@@ -13,4 +13,4 @@ def generate_code_token(length):
     return password
 
 
-print(generate_code_token(16))
+

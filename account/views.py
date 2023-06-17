@@ -25,22 +25,21 @@ class RegisterApiView(APIView):
         if CustomUser.objects.filter(email=email):
             return Response({'message': 'Bu email oraqali royhatdan utilgan!'})
 
-
-        user = CustomUser.objects.create_user(
+        user = CustomUser.objects.create(
             email=email,
             full_name=full_name,
             username=username,
             gender=gender,
             age=age,
             password=make_password(password)
-            )
+        )
         refresh = RefreshToken.for_user(user)
 
         return Response({
             'user': UserSerializer(user).data,
             'refresh': str(refresh),
             'access': str(refresh.access_token)
-            })
+        })
 
 
 class LoginStartView(APIView):
@@ -50,7 +49,7 @@ class LoginStartView(APIView):
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
-        print(request.data)
+        print(email, password)
         user = authenticate(email=email, password=password)
 
         if user:
@@ -86,7 +85,7 @@ class LoginEndView(APIView):
         code_token = request.data.get('code_token')
         code_conf = CodeConfirmation.objects.filter(code_token=str(code_token)).first()
 
-        if code_conf == code and code_conf.code_token == code_token:
+        if code_conf.code and code_conf.code_token == code_token:
             user = code_conf.user
             refresh = RefreshToken.for_user(user)
             code_conf.delete()

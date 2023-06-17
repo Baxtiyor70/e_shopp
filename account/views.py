@@ -21,24 +21,25 @@ class RegisterApiView(APIView):
         age = request.data.get('age')
         gender = request.data.get('gender')
         password = request.data.get('password')
+
         if CustomUser.objects.filter(email=email):
             return Response({'message': 'Bu email oraqali royhatdan utilgan!'})
-        else:
 
-            user = CustomUser.objects.create_user(
-                email=email,
-                full_name=full_name,
-                username=username,
-                gender=gender,
-                age=age,
-                password=make_password(password)
+
+        user = CustomUser.objects.create_user(
+            email=email,
+            full_name=full_name,
+            username=username,
+            gender=gender,
+            age=age,
+            password=make_password(password)
             )
-            refresh = RefreshToken.for_user(user)
+        refresh = RefreshToken.for_user(user)
 
-            return Response({
-                'user': UserSerializer(user).data,
-                'refresh': str(refresh),
-                'access': str(refresh.access_token)
+        return Response({
+            'user': UserSerializer(user).data,
+            'refresh': str(refresh),
+            'access': str(refresh.access_token)
             })
 
 
@@ -49,11 +50,12 @@ class LoginStartView(APIView):
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
-        user = authenticate(email=email, password=password, request=request)
+        print(request.data)
+        user = authenticate(email=email, password=password)
 
         if user:
             code = random_password.random_password(6)
-            code_token = generate_code_token(16)
+            code_token = generate_code_token(32)
             CodeConfirmation.objects.create(
                 user=user,
                 code=code,
@@ -76,6 +78,7 @@ class LoginStartView(APIView):
 
 
 class LoginEndView(APIView):
+    serializer_class = LoginEndSerializer
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
@@ -88,14 +91,10 @@ class LoginEndView(APIView):
             refresh = RefreshToken.for_user(user)
             code_conf.delete()
 
-
             return Response({
                 'user': UserSerializer(user).data,
                 'refresh': str(refresh),
                 'access': str(refresh.access_token)
             })
         else:
-            return Response({'error':'code or code_token is wrong!'})
-
-
-
+            return Response({'error': 'code or code_token is wrong!'})

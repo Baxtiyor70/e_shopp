@@ -1,13 +1,15 @@
 from django.contrib import admin
 
-from .models import CustomUser,CodeConfirmation
+from .models import CustomUser, CodeConfirmation
+
 
 @admin.register(CustomUser)
 class AdminUser(admin.ModelAdmin):
-    list_display = ['id','email','first_name','last_name','gender','username','age']
+    list_display = ['id', 'email', 'first_name', 'last_name', 'gender', 'username', 'age']
 
     class Meta:
-         model = CustomUser
+        model = CustomUser
+
 
 @admin.register(CodeConfirmation)
 class CodeAdmin(admin.ModelAdmin):

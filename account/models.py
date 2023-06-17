@@ -1,13 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
 
-class CustomUserManager(BaseUserManager):
+class CustomUserManage(BaseUserManager):
+
     def create_user(self, email, password, **extra_fields):
+
         if not email:
-            raise ValueError(_("Phone required field!"))
+            raise ValueError(_("email required field!"))
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save()
@@ -15,9 +17,6 @@ class CustomUserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
 
-        """
-        Create and save a SuperUser with the given email and password.
-        """
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
@@ -48,9 +47,9 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    objects = CustomUserManage()
 
-    def str(self):
+    def __str__(self):
         return self.email
 
 

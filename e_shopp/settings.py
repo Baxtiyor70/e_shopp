@@ -127,15 +127,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# JWT configuratsion
-REST_FRAMEWORK={
-    'DEFAULT_AUTHENTICATION_CLASSES':(
-         #'rest_framework.authentication.SessionAuthentication',
-         #'rest_framework.authentication.BasicAuthentication',
+
+# JWT Сonfiguratsion
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
          'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
- 'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+
+    'DEFAULT_PERMISSION_CLASSES': [
+
+         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
 
@@ -144,4 +147,4 @@ REST_FRAMEWORK={
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL='account.CustomUser'
+AUTH_USER_MODEL = 'account.CustomUser'

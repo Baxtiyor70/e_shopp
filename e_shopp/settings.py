@@ -41,6 +41,10 @@ INSTALLED_APPS = [
 
     # custom apps
     'account',
+    'products',
+
+
+
 
 ]
 

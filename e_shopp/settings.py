@@ -44,9 +44,6 @@ INSTALLED_APPS = [
     'products',
     'orders'
 
-
-
-
 ]
 
 MIDDLEWARE = [
@@ -84,13 +81,17 @@ WSGI_APPLICATION = 'e_shopp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'e_shopp_db',
-        'USER': 'e_shopp_user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'e_shopp_db',
+    #     'USER': 'e_shopp_user',
+    #     'PASSWORD': 'password',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    # }
 }
 
 # Password validation

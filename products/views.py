@@ -14,7 +14,7 @@ class CategoryView(mixins.RetrieveModelMixin,
                    GenericViewSet):
     serializer_class = CategorySerializer
     # pagination_class = CustomPagination
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     queryset = Category.objects.all()
 
     def list(self, request, *args, **kwargs):
@@ -36,7 +36,7 @@ class ProductView(mixins.RetrieveModelMixin,
     # filterset_fields = ['price']
     serializer_class = ProductSerializer
     # pagination_class = CustomPagination
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
 
     def list(self, request, *args, **kwargs):
         products = Product.objects.all().order_by('-id')

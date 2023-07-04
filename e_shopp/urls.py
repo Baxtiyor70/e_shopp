@@ -4,16 +4,15 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView, TokenObtainPairView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from products.routers import router
+from products.routers import router as product_router
+from orders.routers import router as order_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('auth/', include('account.urls')),
-    path('products/', include(router.urls))
-    # path('api/token/',TokenObtainPairView.as_view(),name='token_obtain_pair'),
-    # path('api/token/refresh/',TokenRefreshView.as_view(),name='token_refresh'),
-    # path('api/token/verify/',TokenVerifyView.as_view(),name='token_verify'),
+    path('products/', include(product_router.urls)),
+    path('orders/', include(order_router.urls))
 ]
 schema_view = get_schema_view(
     openapi.Info(

@@ -1,14 +1,19 @@
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet
 from rest_framework import permissions, mixins, status
 from rest_framework.response import Response
+
+
+# from helpers.pagination import CustomPagination
+# from django_filters.rest_framework import DjangoFilterBackend
 
 
 class CategoryView(mixins.RetrieveModelMixin,
                    mixins.ListModelMixin,
                    GenericViewSet):
     serializer_class = CategorySerializer
+    # pagination_class = CustomPagination
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Category.objects.all()
 
@@ -27,7 +32,10 @@ class ProductView(mixins.RetrieveModelMixin,
                   mixins.ListModelMixin,
                   GenericViewSet):
     queryset = Product.objects.all()
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['price']
     serializer_class = ProductSerializer
+    # pagination_class = CustomPagination
     permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, *args, **kwargs):
@@ -39,5 +47,3 @@ class ProductView(mixins.RetrieveModelMixin,
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
-
-

@@ -1,3 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
+
+from helpers.pagination import CustomPagination
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from rest_framework.viewsets import GenericViewSet
@@ -32,10 +35,10 @@ class ProductView(mixins.RetrieveModelMixin,
                   mixins.ListModelMixin,
                   GenericViewSet):
     queryset = Product.objects.all()
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['price']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['price']
     serializer_class = ProductSerializer
-    # pagination_class = CustomPagination
+    pagination_class = CustomPagination
     permission_classes = (permissions.AllowAny,)
 
     def list(self, request, *args, **kwargs):
